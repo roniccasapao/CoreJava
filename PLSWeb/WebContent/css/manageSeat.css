@@ -1,0 +1,36 @@
+
+.removeEmployeeFromSeat,.addEmployeeToSeat,.moveEmployeeToSeat{
+	background-color: #01579B;
+	padding: 15px;
+	margin: 15px;
+}
+
+.manageHeader{
+	font-weight: bold;
+	color:#ECEFF1;
+}
+
+.manageForm{
+	margin:10px;
+}
+
+.manageTextBar{
+	height: 25px;	
+}
+
+.btnManage{
+	background-color:#263238;
+	color:#FFFFFF;
+	padding: 5px;
+	height: 29px;
+	border: 1px solid;
+	border-radius: 0;
+	border-color: #ECEFF1;
+}
+
+.btnManage:hover{
+	background-color: #EF6C00;
+	color:#ECEFF1;
+	transition: all .4s;
+}
+

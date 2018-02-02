@@ -1,0 +1,210 @@
+-- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+--
+-- Host: 127.0.0.1    Database: people_locator_system
+-- ------------------------------------------------------
+-- Server version	5.5.17
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `people_locator_system` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `casapao_people_locator_system`;
+
+--
+-- Table structure for table `employee`
+--
+
+DROP TABLE IF EXISTS `employee`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `employee` (
+  `employee_key` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(6) unsigned zerofill NOT NULL,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `local` varchar(45) DEFAULT ' ',
+  `shift` varchar(45) NOT NULL,
+  `role` varchar(45) NOT NULL,
+  PRIMARY KEY (`employee_key`),
+  UNIQUE KEY `employee_id_UNIQUE` (`employee_id`),
+  UNIQUE KEY `sys.employee_id_UNIQUE` (`employee_key`),
+  UNIQUE KEY `local_UNIQUE` (`local`)
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employee`
+--
+
+LOCK TABLES `employee` WRITE;
+/*!40000 ALTER TABLE `employee` DISABLE KEYS */;
+INSERT INTO `employee` VALUES (1,000010,'Haruhi','Suzumiya','','1st','Manager'),(33,001010,'Ronic','Casapao',NULL,'1st','Employee'),(34,000234,'Jilbert','Gacayan','1112','Reg','Manager'),(35,002010,'Jov','Gonzales','1113','2nd','Employee'),(36,002345,'Carlo','Pablo','1114','Reg','Employee'),(37,002344,'Sheila','Dela Cruz','1115','Reg','Manager'),(38,000412,'Emman','Cuacoyes','1116','Reg','Employee'),(39,000325,'Erick','Jaucian',NULL,'Reg','Employee'),(40,000252,'TonTon','Tropicales',NULL,'2nd','Employee'),(41,000235,'Raym','Canales','1119','Night','Employee'),(42,000658,'Pau','Reyes','1120','2nd','Employee'),(43,000768,'Gordz','Gravador','1121','Reg','Manager'),(44,000934,'Paul','Yabut',NULL,'1st','Manager'),(45,002355,'MheAnn','Cajayon',NULL,'Reg','Employee'),(46,000436,'Jadri','Esguerra','1124','Night','Manager'),(47,003219,'Jun','Diesta','1125','2nd','Manager'),(48,003256,'Rin','Calangi','1126','Night','Employee'),(49,000876,'Chitoge','Kirisaki','1127','1st','Employee'),(50,000358,'Souma','Yukihira','1128','1st','Manager'),(51,000987,'Erina','Nakiri',NULL,'1st','Employee'),(52,003789,'Alice','Cadeux',NULL,'Night','Employee'),(53,023589,'Chen','Pangan','1131','2nd','Employee'),(54,000124,'John','Smith','1132','1st','Manager'),(55,007489,'Usagi','Tsukino','1133','Night','Employee'),(56,003482,'Hugh','Jackman','1134','Night','Employee'),(57,009493,'Emma','Roberts',NULL,'Night','Employee'),(58,009539,'Chris','Hemsworth',NULL,'Reg','Employee'),(59,003578,'Hayley','Williams','1137','2nd','Manager'),(60,003605,'William','Smith','1138','Reg','Employee'),(61,037893,'John','Williams','1139','Reg','Employee'),(62,089539,'Scarlet','Evans',NULL,'Night','Employee'),(64,087610,'Chum','Benavidez',NULL,'Reg','Employee'),(65,054843,'Ayie','Salvadora',NULL,'Reg','Manager');
+/*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `project`
+--
+
+DROP TABLE IF EXISTS `project`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `project` (
+  `project_id` int(11) NOT NULL AUTO_INCREMENT,
+  `projectName` varchar(45) NOT NULL,
+  PRIMARY KEY (`project_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project`
+--
+
+LOCK TABLES `project` WRITE;
+/*!40000 ALTER TABLE `project` DISABLE KEYS */;
+INSERT INTO `project` VALUES (1,'Frittata'),(2,'Pikachu'),(3,'HelloKitty'),(4,'ChocolateCake'),(5,'Piaya'),(6,'Keroberos');
+/*!40000 ALTER TABLE `project` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `project_assignment`
+--
+
+DROP TABLE IF EXISTS `project_assignment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `project_assignment` (
+  `project_assignment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_key` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  PRIMARY KEY (`project_assignment_id`),
+  UNIQUE KEY `project_assignment_id_UNIQUE` (`project_assignment_id`),
+  KEY `project_id` (`project_id`),
+  KEY `employee_key` (`employee_key`),
+  CONSTRAINT `employee_key_projAssignment` FOREIGN KEY (`employee_key`) REFERENCES `employee` (`employee_key`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `project_id_projAssignment` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project_assignment`
+--
+
+LOCK TABLES `project_assignment` WRITE;
+/*!40000 ALTER TABLE `project_assignment` DISABLE KEYS */;
+INSERT INTO `project_assignment` VALUES (9,1,1),(10,33,1),(11,34,5),(12,35,3),(13,36,3),(14,37,4),(15,38,2),(16,39,2),(17,1,2),(18,48,5),(19,40,6),(20,41,2),(21,42,5),(22,43,3),(23,43,6),(24,44,2),(25,44,1),(26,45,3),(27,46,5),(28,47,2),(29,47,1),(30,49,6),(31,50,1),(32,55,3),(33,57,4),(34,59,4),(35,59,5),(36,60,4),(37,51,1),(38,51,4),(39,36,6),(40,53,2),(41,46,5),(42,37,6);
+/*!40000 ALTER TABLE `project_assignment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `seat`
+--
+
+DROP TABLE IF EXISTS `seat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `seat` (
+  `seat_key` int(11) NOT NULL AUTO_INCREMENT,
+  `seat_id` varchar(45) NOT NULL,
+  `location` varchar(45) NOT NULL,
+  `floor` varchar(45) NOT NULL,
+  `quadrant` varchar(45) NOT NULL,
+  PRIMARY KEY (`seat_key`),
+  UNIQUE KEY `seat_id_UNIQUE` (`seat_id`),
+  UNIQUE KEY `seat_key_UNIQUE` (`seat_key`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `seat`
+--
+
+LOCK TABLES `seat` WRITE;
+/*!40000 ALTER TABLE `seat` DISABLE KEYS */;
+INSERT INTO `seat` VALUES (1,'PIC3FA1-1','PIC','3','A'),(7,'PIC3FA2-1','PIC','3','A'),(8,'PIC3FB3-1','PIC','3','B'),(9,'PIC3FB4-1','PIC','3','B'),(10,'PIC3FC1-3','PIC','3','C'),(11,'PIC3FC2-3','PIC','3','C'),(12,'PIC3FD3-3','PIC','3','D'),(13,'PIC3FD4-3','PIC','3','D'),(14,'PIC4FA1-1','PIC','4','A'),(15,'PIC4FA2-1','PIC','4','A'),(16,'PIC4FB3-1','PIC','4','B'),(17,'PIC4FB4-1','PIC','4','B'),(18,'PIC4FC1-3','PIC','4','C'),(19,'PIC4FC2-3','PIC','4','C'),(20,'PIC4FD3-3','PIC','4','D'),(21,'PIC4FD4-3','PIC','4','D'),(22,'PIC2F1-1','PIC','2',''),(23,'PIC2F2-1','PIC','2',''),(24,'PIC2F3-1','PIC','2',''),(25,'PIC2F4-1','PIC','2',''),(26,'PIC2F1-2','PIC','2',''),(27,'PIC2F2-2','PIC','2',''),(28,'PIC2F3-2','PIC','2',''),(29,'PIC2F4-2','PIC','2',''),(30,'PTC12FA1-1','PTC','12','A'),(31,'PTC12FA2-1','PTC','12','A'),(32,'PTC12FB3-1','PTC','12','B'),(33,'PTC12FB4-1','PTC','12','B'),(34,'PTC12FC1-3','PTC','12','C'),(35,'PTC12FC2-3','PTC','12','C'),(36,'PTC12FD3-3','PTC','12','D'),(37,'PTC12FD4-3','PTC','12','D'),(38,'PTC12FA1-2','PTC','12','A'),(39,'PTC12FA2-2','PTC','12','A'),(40,'PTC12FB3-2','PTC','12','B'),(41,'PTC12FB4-2','PTC','12','B'),(42,'PTC12FC1-4','PTC','12','C'),(43,'PTC12FC2-4','PTC','12','C'),(44,'PTC12FD3-4','PTC','12','D'),(45,'PTC12FD4-4','PTC','12','D'),(46,'PIC3FA1-2','PIC','3','A'),(47,'PIC3FA2-2','PIC','3','A'),(48,'PIC3FB3-2','PIC','3','B'),(49,'PIC3FB4-2','PIC','3','B'),(50,'PIC3FC1-4','PIC','3','C'),(51,'PIC3FC2-4','PIC','3','C'),(52,'PIC3FD3-4','PIC','3','D'),(53,'PIC3FD4-4','PIC','3','D'),(54,'PIC4FA1-2','PIC','4','A'),(55,'PIC4FA2-2','PIC','4','A'),(56,'PIC4FB3-2','PIC','4','B'),(57,'PIC4FB4-2','PIC','4','B'),(58,'PIC4FC1-4','PIC','4','C'),(59,'PIC4FC2-4','PIC','4','C'),(60,'PIC4FD3-4','PIC','4','D'),(61,'PIC4FD4-4','PIC','4','D');
+/*!40000 ALTER TABLE `seat` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `seat_assignment`
+--
+
+DROP TABLE IF EXISTS `seat_assignment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `seat_assignment` (
+  `seat_assignment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_key` int(11) NOT NULL,
+  `seat_key` int(11) NOT NULL,
+  PRIMARY KEY (`seat_assignment_id`),
+  UNIQUE KEY `employee_key_UNIQUE` (`employee_key`),
+  UNIQUE KEY `seat_key_UNIQUE` (`seat_key`),
+  UNIQUE KEY `seat_assignment_id_UNIQUE` (`seat_assignment_id`),
+  KEY `employee_key1` (`employee_key`),
+  KEY `seat_key_seatAssignment` (`seat_key`),
+  CONSTRAINT `employee_key_seatAssignment` FOREIGN KEY (`employee_key`) REFERENCES `employee` (`employee_key`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `seat_key_seatAssignment` FOREIGN KEY (`seat_key`) REFERENCES `seat` (`seat_key`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `seat_assignment`
+--
+
+LOCK TABLES `seat_assignment` WRITE;
+/*!40000 ALTER TABLE `seat_assignment` DISABLE KEYS */;
+INSERT INTO `seat_assignment` VALUES (1,33,7),(2,1,8),(3,34,9),(4,35,10),(5,36,11),(6,37,12),(7,38,13),(8,39,14),(9,40,24),(10,41,23),(11,42,25),(12,43,34),(13,44,37),(14,45,26),(15,46,35),(16,47,27),(17,48,28),(18,49,36),(19,50,19),(20,51,20),(21,52,21),(22,53,22),(23,54,16),(24,55,30),(25,56,29),(26,57,31),(27,58,15),(28,59,32),(29,60,33),(30,61,18),(31,62,17),(32,64,1);
+/*!40000 ALTER TABLE `seat_assignment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_info`
+--
+
+DROP TABLE IF EXISTS `user_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_info` (
+  `login_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `employee_key` int(11) NOT NULL,
+  PRIMARY KEY (`login_id`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `employee_key_UNIQUE` (`employee_key`),
+  UNIQUE KEY `login_id_UNIQUE` (`login_id`),
+  KEY `employee_key_userInfo` (`employee_key`),
+  CONSTRAINT `employee_key_userInfo` FOREIGN KEY (`employee_key`) REFERENCES `employee` (`employee_key`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_info`
+--
+
+LOCK TABLES `user_info` WRITE;
+/*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
+INSERT INTO `user_info` VALUES (1,'Ronic.Casapao','password',33),(2,'Jilbert.Gacayan','password',34),(3,'Jov.Gonzales','password',35),(4,'Carlo.Pablo','password',36),(5,'Sheila.DelaCruz','password',37),(6,'Emman.Cuacoyes','password',38),(7,'Erick.Jaucian','password',39),(8,'TonTon.Tropicales','password',40),(9,'Raym.Canales','password',41),(10,'Pau.Reyes','password',42),(11,'Gordz.Gravador','password',43),(12,'Paul.Yabut','password',44),(13,'MheAnn.Cajayon','password',45),(14,'Jadri.Esguerra','password',46),(15,'Jun.Diesta','password',47),(16,'Rin.Calangi','password',48),(17,'Chitoge.Kirisaki','password',49),(18,'Souma.Yukihira','password',50),(19,'Erina.Nakiri','password',51),(20,'Alice.Cadeux','password',52),(21,'Chen.Pangan','password',53),(22,'John.Smith','password',54),(23,'Usagi.Tsukino','password',55),(24,'Hugh.Jackman','password',56),(25,'Emma.Roberts','password',57),(26,'Chris.Hemsworth','password',58),(27,'Hayley.Williams','password',59),(28,'William.Smith','password',60),(29,'John.Williams','password',61),(30,'Scarlet.Evans','password',62),(31,'Haruhi.Suzumiya','password',1),(32,'Chum.Benavidez','password',64),(33,'Ayie.Salvadora','password',65);
+/*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-06-09 18:02:45

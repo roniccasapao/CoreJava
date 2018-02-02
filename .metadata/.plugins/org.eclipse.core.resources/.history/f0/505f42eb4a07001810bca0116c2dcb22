@@ -1,0 +1,23 @@
+package com.core.java.dayOne;
+
+public class ComputeArea {
+
+	public static void main(String[] args) {
+		
+		
+		
+//		Integer x = null;
+//		int y;
+//		
+//		y = x.parseInt("5");
+//		
+////		byte a = 128;
+//		
+//		
+//		
+//		char oneChar3 = '\u007b';
+		
+		System.out.println(Math.addExact(1, 2););
+	}
+
+}
